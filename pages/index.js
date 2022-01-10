@@ -28,7 +28,6 @@ export default function Home() {
       </section>
       <section>
         <div>
-          {" "}
           <figure>
             <Image
               src="https://placekitten.com/200/300"
@@ -38,7 +37,6 @@ export default function Home() {
             />
           </figure>
         </div>
-
         <div>
           <p>
             Ryloth was a planet in the Ryloth system of the Outer Rim
@@ -54,6 +52,17 @@ export default function Home() {
             <button>get started</button>
           </nav>
         </div>
+      </section>
+      <section>
+        <nav>
+          <a
+            href="https://github.com/sgerpdx/calendoors"
+            target="_blank"
+            rel="noreferrer"
+          >
+            github
+          </a>
+        </nav>
       </section>
     </main>
   );
