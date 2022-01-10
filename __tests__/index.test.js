@@ -6,7 +6,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 // for use of toBeInTheDocument():
 import "@testing-library/jest-dom";
-// import Home from "../pages/index";
+import Home from "../pages/index";
 
 jest.mock(
   "next/image",
@@ -19,7 +19,7 @@ jest.mock(
 
 describe("Home", () => {
   it("renders the Home/Index page", async () => {
-    // render(<Home />);
+    render(<Home />);
     const welcomeHeading = await screen.getByText("Welcome to Calendoors!");
 
     expect(welcomeHeading).toBeInTheDocument();
