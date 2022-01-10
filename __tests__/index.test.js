@@ -20,8 +20,17 @@ jest.mock(
 describe("Home", () => {
   it("renders the Home/Index page", async () => {
     render(<Home />);
+
     const welcomeHeading = await screen.getByText("Welcome to Calendoors!");
 
+    const userImage = await screen.getByRole("img", {
+      name: "cat photo",
+    });
+
+    const signInButton = await screen.getByRole("button", { name: "sign up" });
+
     expect(welcomeHeading).toBeInTheDocument();
+    expect(userImage).toBeInTheDocument();
+    expect(signInButton).toBeInTheDocument();
   });
 });
