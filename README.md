@@ -1,1 +1,1 @@
-### Customizable Advent Calendar App
+### Customizable Daily-Reveal Calendar App
