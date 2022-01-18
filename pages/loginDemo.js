@@ -1,6 +1,20 @@
 import React from "react";
 import Image from "next/image";
 
+// //firebase imports:
+// import {
+//   getAuth,
+//   createUserWithEmailAndPassword,
+//   signInWithEmailAndPassword,
+//   onAuthStateChanged,
+//   updateProfile,
+// } from "firebase/auth";
+// import {
+//   handleCalendoorSignUp,
+//   handleCalendoorSignOut,
+//   handleCalendoorLogIn,
+// } from "../utils/firebase/firebaseAuth";
+
 export default function LoginDemo() {
   return (
     <div
