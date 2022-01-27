@@ -33,14 +33,11 @@ export const firebaseApp = initializeApp({
 const auth = getAuth();
 
 // basic auth functions
-const handleCalendoorSignUp = (e) => {
-  e.preventDefault();
-  //signInWithPopup(auth, provider);
-  console.log("Signed up");
-  setFormToggle(true);
+const handleUserSignUp = (e) => {
+  const
 };
 
-const handleCalendoorSignOut = (e) => {
+const handleUserSignOut = (e) => {
   e.preventDefault();
   //signInWithPopup(auth, provider);
   auth.signOut().then(() => {
@@ -49,7 +46,7 @@ const handleCalendoorSignOut = (e) => {
   console.log("Out");
 };
 
-const handleCalendoorLogIn = (e) => {
+const handleUserLogIn = (e) => {
   e.preventDefault();
   //signInWithPopup(auth, provider);
   const currentEmail = uEmail;
@@ -80,9 +77,8 @@ const handleUserUpdate = (e, name) => {
 };
 
 module.exports = {
-
   handleUserUpdate,
-  handleCalendoorSignUp,
-  handleCalendoorSignOut,
-  handleCalendoorLogIn,
+  handleUserSignUp,
+  handleUserSignOut,
+  handleUserLogIn,
 };

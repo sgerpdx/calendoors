@@ -8,7 +8,7 @@ import { initializeApp } from "firebase/app";
 //
 
 function MyApp({ Component, pageProps }) {
-  const [currentUserID, setCurrentUserID] = useState("");
+  const [currentUserID, setCurrentUserID] = useState("135792468");
 
   const handleUserIDChange = (userID) => {
     setCurrentUserID(userID);
