@@ -22,15 +22,15 @@ import {
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 //this app could actually be in its own utils file, as the core initialization:
-export const firebaseApp = initializeApp({
-  apiKey: "AIzaSyCTkpCY9y8rvqOr7xsD95H1jO9hjWMBtwU",
-  authDomain: "calendoors-app.firebaseapp.com",
-  projectId: "calendoors-app",
-  storageBucket: "400603635821",
-  appId: "1:400603635821:web:cbf951d1cbfa18f2d29f64",
-});
+// export const firebaseApp = initializeApp({
+//   apiKey: "AIzaSyCTkpCY9y8rvqOr7xsD95H1jO9hjWMBtwU",
+//   authDomain: "calendoors-app.firebaseapp.com",
+//   projectId: "calendoors-app",
+//   storageBucket: "400603635821",
+//   appId: "1:400603635821:web:cbf951d1cbfa18f2d29f64",
+// });
 
-const auth = getAuth();
+// const auth = getAuth();
 
 // basic auth functions
 const handleUserSignUp = (e) => {
