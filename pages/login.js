@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 
 // graphics imports:
@@ -11,19 +12,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-  getDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 // firebase app + auth + db initialization:
@@ -39,7 +30,7 @@ initializeApp(config);
 const db = getFirestore();
 const auth = getAuth();
 
-export default function Login() {
+export default function Login({ value }) {
   // to control visibility of user form:
   const [formToggle, setFormToggle] = useState(false);
 
@@ -51,6 +42,14 @@ export default function Login() {
 
   // current action for form:
   const [newAction, setNewAction] = useState("");
+
+  //state from _app
+  const currentUserID = value.currentUserID;
+  const handleUserIDChange = value.handleUserIDChange;
+
+  //router for query params
+  const router = useRouter();
+  const { pid } = "uid goes here";
 
   // this fires like useEffect on load:
   // need to figure out why this runs 100 times at every change
@@ -175,7 +174,7 @@ export default function Login() {
             avatar: "https://placekitten.com/200/300",
           }).then(console.log("All good!"));
 
-          //handleUserIDChange(cred.uid);
+          handleUserIDChange(cred.uid);
         }
       );
       console.log("User signed up.");
@@ -187,13 +186,13 @@ export default function Login() {
           console.log("User Cred:", cred.user);
           //console.log("currentUserID:", currentUserID);
           console.log("name:", cred.user.displayName);
-          //handleUserIDChange(cred.uid);
+          handleUserIDChange(cred.uid);
         }
       );
       console.log("Logged back in");
     }
-
     setFormToggle(false);
+    router.push("/setup/");
   };
 
   //simply logs current user info whenever uEmail changes:
@@ -214,9 +213,8 @@ export default function Login() {
           onClick={handleFormViz}
           style={{ backgroundColor: "yellow", color: "brown" }}
         >
-          --test--
+          show form
         </button>
-        <div style={{ fontSize: "2em" }}>Calendar</div>
         <div>
           <button
             onClick={handleCalendarSignUp}
@@ -262,15 +260,6 @@ export default function Login() {
           backgroundColor: "grey",
         }}
       >
-        <h2>Welcome:</h2>
-        <figure>
-          <Image
-            src="https://placekitten.com/200/300"
-            width="120"
-            height="120"
-          />
-          <figcaption>user name</figcaption>
-        </figure>
         <textarea placeholder="user data here"></textarea>
       </section>
       <section>
