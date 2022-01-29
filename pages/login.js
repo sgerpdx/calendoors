@@ -52,15 +52,16 @@ export default function Login() {
   // current action for form:
   const [newAction, setNewAction] = useState("");
 
-  //this fires like useEffect on load:
-  onAuthStateChanged(auth, (user) => {
-    //here we can check to see if user exists
-    if (user) {
-      console.log("user logged in:", user);
-    } else {
-      console.log("user logged out");
-    }
-  });
+  // this fires like useEffect on load:
+  // need to figure out why this runs 100 times at every change
+  //   onAuthStateChanged(auth, (user) => {
+  //     //here we can check to see if user exists
+  //     if (user) {
+  //       console.log("user logged in:", user);
+  //     } else {
+  //       console.log("user logged out");
+  //     }
+  //   });
 
   //this needs to be adjusted to include adding the imageURL to the collection as well, unless we combine that into the sign-up:
   const handleUserUpdate = (e) => {
@@ -167,17 +168,12 @@ export default function Login() {
           //   moniker: currentName,
           // });
 
+          //this creates a record in the users collection to go with the auth user:
           setDoc(doc(db, "users", cred.user.uid), {
             username: currentName,
             email: currentEmail,
             avatar: "https://placekitten.com/200/300",
           }).then(console.log("All good!"));
-
-          // set(ref(db, "users/" + cred.user.uid), {
-          //   username: currentName,
-          //   email: currentEmail,
-          //   avatar: "https://placekitten.com/200/300",
-          // });
 
           //handleUserIDChange(cred.uid);
         }
@@ -330,17 +326,6 @@ export default function Login() {
               </fieldset>
             </>
           ) : (
-            // <form onSubmit={handleSubmit}>
-            //   <label>
-            //     First Name:
-            //     <input
-            //       type="text"
-            //       value={name}
-            //       onChange={(e) => setName(e.target.value)}
-            //     />
-            //   </label>
-            //   <input type="submit" value="Submit" />
-            // </form>
             <></>
           )}
         </div>

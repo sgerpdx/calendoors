@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../styles/globals.css";
 import Head from "next/head";
+import Layout from "../components/Layout";
 
 //
-import { initializeApp } from "firebase/app";
-
+// think about any global auth state that can be defined here
 
 //
 
@@ -32,7 +32,9 @@ function MyApp({ Component, pageProps }) {
         <title>Calendoors</title>
         <link rel="icon" href="/fake-logo.png" type="image/png" />
       </Head>
-      <Component {...pageProps} value={state} />
+      <Layout>
+        <Component {...pageProps} value={state} />
+      </Layout>
     </>
   );
 }
