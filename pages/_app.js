@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Calendoors</title>
         <link rel="icon" href="/fake-logo.png" type="image/png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Layout>
         <Component {...pageProps} value={state} />

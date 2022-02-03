@@ -37,12 +37,12 @@ export default function setup({ value }) {
   const [uAvatar, setUAvatar] = useState("https://placekitten.com/200/300");
 
   // state from _app (maybe unnecessary with onAuthStateChanged)
-  const currentUserID = value.currentUserID;
-  const handleUserIDChange = value.handleUserIDChange;
+  //   const currentUserID = value.currentUserID;
+  //   const handleUserIDChange = value.handleUserIDChange;
 
   // router
   const router = useRouter();
-  const { pid } = router.query;
+  //   const { pid } = router.query;
 
   onAuthStateChanged(auth, (user) => {
     if (user) {

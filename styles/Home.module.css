@@ -114,3 +114,31 @@
     flex-direction: column;
   }
 }
+
+/* styles for login page */
+
+.loginControls {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.loginButton {
+  background-color: brown;
+  color: white;
+  border: solid 1px white;
+  border-radius: 6px;
+}
+
+.loginDataBox {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+}
+
+.loginFormContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: brown;
+  color: white;
+}

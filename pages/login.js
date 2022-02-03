@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import styles from "../styles/Home.module.css";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 
 // graphics imports:
-import MdOutlineSettingsSuggest from "react-icons/md";
-import RiUserSettingsLine from "react-icons/ri";
+import { MdOutlineSettingsSuggest } from "react-icons/md";
+import { RiUserSettingsLine } from "react-icons/ri";
+import { BsPencilSquare } from "react-icons/bs";
 
 // various firebase imports:
 import firebase, { initializeApp } from "firebase/app";
@@ -43,7 +45,7 @@ export default function Login({ value }) {
   // current action for form:
   const [newAction, setNewAction] = useState("");
 
-  //state from _app
+  //state from _app (maybe uneccessary with onAuthStateChanged)
   const currentUserID = value.currentUserID;
   const handleUserIDChange = value.handleUserIDChange;
 
@@ -206,63 +208,34 @@ export default function Login({ value }) {
   // }, [uEmail]);
   return (
     <>
-      <section
-        style={{ display: "flex", flexDirection: "row", color: "white" }}
-      >
-        <button
-          onClick={handleFormViz}
-          style={{ backgroundColor: "yellow", color: "brown" }}
-        >
-          show form
+      <section className={styles.loginControls}>
+        <button onClick={handleFormViz} className={styles.loginButton}>
+          <BsPencilSquare />
+          <span style={{ marginLeft: "10px" }}>show form</span>
         </button>
         <div>
-          <button
-            onClick={handleCalendarSignUp}
-            style={{
-              backgroundColor: "green",
-              color: "white",
-              borderRadius: "8px",
-              border: "solid 1px white",
-            }}
-          >
+          <button onClick={handleCalendarSignUp} className={styles.loginButton}>
             Sign Up
           </button>
           <button
             onClick={handleCalendarSignOut}
-            style={{
-              backgroundColor: "blue",
-              color: "white",
-              borderRadius: "8px",
-              border: "solid 1px white",
-            }}
+            className={styles.loginButton}
           >
             Sign Out
           </button>
-          <button
-            onClick={handleCalendarLogIn}
-            style={{
-              backgroundColor: "purple",
-              color: "white",
-              borderRadius: "8px",
-              border: "solid 1px white",
-            }}
-          >
+          <button onClick={handleCalendarLogIn} className={styles.loginButton}>
             Log In
           </button>
-          <p> User Settings</p>
-          <p>Calendar Settings</p>
+          <p>
+            <MdOutlineSettingsSuggest />
+            <span style={{ marginLeft: "5px" }}> User Settings</span>
+          </p>
         </div>
       </section>
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "grey",
-        }}
-      >
+      <section className={styles.loginDataBox}>
         <textarea placeholder="user data here"></textarea>
       </section>
-      <section>
+      <section className={styles.loginFormContainer}>
         <div>
           {formToggle ? (
             <>
