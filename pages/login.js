@@ -242,34 +242,34 @@ export default function Login({ value }) {
               <form id="signup-form">
                 <fieldset>
                   <legend>account:</legend>
-
                   <div>
-                    <input
-                      type="email"
-                      name="email"
-                      onChange={handleEmailChange}
-                      required
-                    />
-                    <label htmlFor="signup-email">email:</label>
-                  </div>
-                  <div>
-                    <input
-                      type="password"
-                      name="password"
-                      onChange={handlePasswordChange}
-                      required
-                    />
-                    <label htmlFor="signup-password">password:</label>
-                  </div>
-                  <div>
+                    <label htmlFor="signup-name">name:</label>
                     <input
                       type="name"
                       name="name"
                       onChange={handleNameChange}
                       required
                     />
-                    <label htmlFor="signup-name">name:</label>
                   </div>
+                  <div>
+                    <label htmlFor="signup-email">email:</label>
+                    <input
+                      type="email"
+                      name="email"
+                      onChange={handleEmailChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="signup-password">password:</label>
+                    <input
+                      type="password"
+                      name="password"
+                      onChange={handlePasswordChange}
+                      required
+                    />
+                  </div>
+
                   {/* <form action="/action_page.php">
                     Upload Avatar Image:
                     <input type="file" name="filename" />

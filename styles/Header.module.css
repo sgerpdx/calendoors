@@ -1,0 +1,41 @@
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  background-color: blue;
+  color: white;
+  padding: 20px;
+}
+
+.headerLogoArea,
+.headerLoginArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 100%;
+}
+
+/* .headerLoginArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 100%;
+} */
+
+.headerTitleArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 292px;
+}
+
+.loginButton {
+  background-color: blue;
+  color: white;
+  border: solid 1px white;
+  border-radius: 6px;
+}
