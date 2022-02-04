@@ -3,8 +3,12 @@ import "../styles/globals.css";
 import Head from "next/head";
 import Layout from "../components/Layout";
 
-//
-import { getAuth } from "firebase/auth";
+// firebase app import (okay that not being called explicitly):
+import { firebase } from "../utils/firebase/firebase.js";
+
+// firebase auth setup:
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const auth = getAuth();
 
 //
 
@@ -17,15 +21,18 @@ function MyApp({ Component, pageProps }) {
     console.log("User ID changed.");
   };
 
-  // const firebaseApp = initializeApp({
-  //   apiKey: "AIzaSyCTkpCY9y8rvqOr7xsD95H1jO9hjWMBtwU",
-  //   authDomain: "calendoors-app.firebaseapp.com",
-  //   projectId: "calendoors-app",
-  //   storageBucket: "400603635821",
-  //   appId: "1:400603635821:web:cbf951d1cbfa18f2d29f64",
-  // });
+  const state = { auth, isLoggedIn, currentUserID, handleUserIDChange };
 
-  const state = { isLoggedIn, currentUserID, handleUserIDChange };
+  onAuthStateChanged(auth, (user) => {
+    //here we can check to see if user exists
+    if (user) {
+      setIsLoggedIn(true);
+      console.log("user logged in:", user);
+    } else {
+      setIsLoggedIn(false);
+      console.log("user logged out");
+    }
+  });
 
   return (
     <>
