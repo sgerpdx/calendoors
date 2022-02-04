@@ -39,24 +39,9 @@ export default function Home({ value }) {
   // current action for form:
   const [newAction, setNewAction] = useState("");
 
-  //state from _app (maybe uneccessary with onAuthStateChanged)
-  const currentUserID = value.currentUserID;
-  const handleUserIDChange = value.handleUserIDChange;
-
   //router for query params
   const router = useRouter();
   const { pid } = "uid goes here";
-
-  // this fires like useEffect on load:
-  // need to figure out why this runs 100 times at every change
-  //   onAuthStateChanged(auth, (user) => {
-  //     //here we can check to see if user exists
-  //     if (user) {
-  //       console.log("user logged in:", user);
-  //     } else {
-  //       console.log("user logged out");
-  //     }
-  //   });
 
   //this needs to be adjusted to include adding the imageURL to the collection as well, unless we combine that into the sign-up:
   const handleUserUpdate = (e) => {
@@ -96,19 +81,6 @@ export default function Home({ value }) {
     e.preventDefault();
     setNewAction("login");
     setFormToggle(true);
-
-    // for Google sign-in:
-    //signInWithPopup(auth, provider);
-
-    // signInWithEmailAndPassword(auth, currentEmail, currentPassword).then(
-    //   (cred) => {
-    //     console.log("User Cred:", cred.user);
-    //     console.log("currentUserID:", currentUserID);
-    //     console.log("name:", cred.user.displayName);
-    //     //handleUserIDChange(cred.uid);
-    //   }
-    // );
-    // console.log("Logged back in");
   };
 
   //simply shows or hides the form:
@@ -195,11 +167,6 @@ export default function Home({ value }) {
   useEffect(() => {
     console.log("NEAPWAV:", uName, uEmail, uPassword, uAvatar);
   }, []);
-
-  // useEffect(() => {
-  //   const newUID = user.uid;
-  //   handleUserIDChange(newUID);
-  // }, [uEmail]);
   return (
     <>
       <section className={styles.loginControls}>

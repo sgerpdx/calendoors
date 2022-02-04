@@ -1,3 +1,5 @@
+// this file is now redundant with code moved to index
+
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/dist/client/router";
