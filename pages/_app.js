@@ -4,11 +4,12 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 
 //
-// think about any global auth state that can be defined here
+import { getAuth } from "firebase/auth";
 
 //
 
 function MyApp({ Component, pageProps }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUserID, setCurrentUserID] = useState("135792468");
 
   const handleUserIDChange = (userID) => {
@@ -24,7 +25,7 @@ function MyApp({ Component, pageProps }) {
   //   appId: "1:400603635821:web:cbf951d1cbfa18f2d29f64",
   // });
 
-  const state = { currentUserID, handleUserIDChange };
+  const state = { isLoggedIn, currentUserID, handleUserIDChange };
 
   return (
     <>

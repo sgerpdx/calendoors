@@ -8,8 +8,10 @@ import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsPencilSquare } from "react-icons/bs";
 
-// various firebase imports:
-import firebase, { initializeApp } from "firebase/app";
+// firebase app import:
+import { firebase } from "../utils/firebase/firebase.js";
+
+// various firebase auth and db imports:
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -20,15 +22,15 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 // firebase app + auth + db initialization:
-const config = {
-  apiKey: "AIzaSyCTkpCY9y8rvqOr7xsD95H1jO9hjWMBtwU",
-  authDomain: "calendoors-app.firebaseapp.com",
-  projectId: "calendoors-app",
-  storageBucket: "calendoors-app.appspot.com",
-  messagingSenderId: "400603635821",
-  appId: "1:400603635821:web:cbf951d1cbfa18f2d29f64",
-};
-initializeApp(config);
+// const config = {
+//   apiKey: "AIzaSyCTkpCY9y8rvqOr7xsD95H1jO9hjWMBtwU",
+//   authDomain: "calendoors-app.firebaseapp.com",
+//   projectId: "calendoors-app",
+//   storageBucket: "calendoors-app.appspot.com",
+//   messagingSenderId: "400603635821",
+//   appId: "1:400603635821:web:cbf951d1cbfa18f2d29f64",
+// };
+// initializeApp(config);
 const db = getFirestore();
 const auth = getAuth();
 
