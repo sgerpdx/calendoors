@@ -6,6 +6,7 @@ import Image from "next/image";
 // graphics imports:
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { AiOutlineStar } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 
 // firebase app import (okay that not being called explicitly):
@@ -219,10 +220,19 @@ export default function Login({ value }) {
           <button onClick={handleCalendarLogIn} className={styles.loginButton}>
             Log In
           </button>
-          <p>
+          <p style={{ margin: "10px" }}>
             <MdOutlineSettingsSuggest />
-            <span style={{ marginLeft: "5px" }}> User Settings</span>
+            <span> User Settings</span>
           </p>
+          <a
+            href="https://advent-calendar-2021-teal.vercel.app/"
+            target="_blank"
+          >
+            <p style={{ margin: "10px" }}>
+              <AiOutlineStar />
+              <span> Demo</span>
+            </p>
+          </a>
         </div>
       </section>
       <section className={styles.loginDataBox}>
