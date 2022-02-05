@@ -142,7 +142,7 @@ export default function Home({ value }) {
             avatar: "https://placekitten.com/200/300",
           }).then(console.log("All good!"));
 
-          handleUserIDChange(cred.uid);
+          // handleUserIDChange(cred.uid);
         }
       );
       console.log("User signed up.");
@@ -154,7 +154,7 @@ export default function Home({ value }) {
           console.log("User Cred:", cred.user);
           //console.log("currentUserID:", currentUserID);
           console.log("name:", cred.user.displayName);
-          handleUserIDChange(cred.uid);
+          // handleUserIDChange(cred.uid);
         }
       );
       console.log("Logged back in");
