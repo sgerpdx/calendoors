@@ -21,6 +21,10 @@ function MyApp({ Component, pageProps }) {
     console.log("User ID changed.");
   };
 
+  const handleLoginChange = (newBoolean) => {
+    setIsLoggedIn(newBoolean);
+  };
+
   onAuthStateChanged(auth, (user) => {
     //here we can check to see if user exists
     if (user) {
@@ -32,7 +36,7 @@ function MyApp({ Component, pageProps }) {
     }
   });
 
-  const state = { auth, isLoggedIn, currentUserID, handleUserIDChange };
+  const state = { auth, isLoggedIn, handleLoginChange };
 
   return (
     <>
@@ -41,7 +45,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/fake-logo.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Layout loginStatus={isLoggedIn}>
+      <Layout loginStatus={isLoggedIn} updateLogin={handleLoginChange}>
         <Component {...pageProps} value={state} />
       </Layout>
     </>

@@ -30,6 +30,10 @@ export default function Home({ value }) {
   // to control visibility of user form:
   const [formToggle, setFormToggle] = useState(false);
 
+  // State from _app:
+  const isLoggedIn = value.isLoggedIn;
+  const handleLoginChange = value.handleLoginChange;
+
   // user information:
   const [uName, setUName] = useState("");
   const [uEmail, setUEmail] = useState("");
@@ -122,6 +126,7 @@ export default function Home({ value }) {
     const currentEmail = uEmail;
     const currentPassword = uPassword;
     const currentAction = newAction;
+    const currentLoginStatus = isLoggedIn;
 
     // console log operating data:
     console.log("Active Info:", uName, uEmail, uPassword);
@@ -157,16 +162,26 @@ export default function Home({ value }) {
           // handleUserIDChange(cred.uid);
         }
       );
+
       console.log("Logged back in");
     }
+
+    handleLoginChange(true);
     setFormToggle(false);
     router.push("/setup/");
   };
 
-  //simply logs current user info whenever uEmail changes:
+  // Simply logs current user info whenever uEmail changes:
   useEffect(() => {
     console.log("NEAPWAV:", uName, uEmail, uPassword, uAvatar);
   }, []);
+
+  // Updates login status to current for conditional rendering of header
+  useEffect(() => {
+    const currentLoginStatus = isLoggedIn;
+    handleLoginChange(false);
+  }, [isLoggedIn]);
+
   return (
     <>
       <section className={styles.loginControls}>

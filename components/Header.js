@@ -12,11 +12,12 @@ const auth = getAuth();
 //
 import AppLogo from "../public/fake-logo.png";
 
-export default function Header({ loginStatus }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function Header({ loginStatus, updateLogin }) {
+  const handleLoginChange = updateLogin;
 
   useEffect(() => {
-    setIsLoggedIn(true);
+    const currentLoginStatus = loginStatus;
+    console.log("CLS:", currentLoginStatus);
   }, []);
   //
   const router = useRouter();
@@ -27,8 +28,15 @@ export default function Header({ loginStatus }) {
     auth.signOut().then(() => {
       console.log("User has logged out.");
     });
+    handleLoginChange(false);
     console.log("Out");
     router.push("/");
+  };
+
+  const handleInoperableMessage = () => {
+    console.log(
+      "This function is currently inoperable -- please use the login button in the page below."
+    );
   };
 
   return (
@@ -40,7 +48,7 @@ export default function Header({ loginStatus }) {
         <h1>Calendoors</h1>
       </div>
       <div className={styles.headerLoginArea}>
-        {isLoggedIn ? (
+        {loginStatus ? (
           <button
             className={styles.loginButton}
             onClick={handleCalendarSignOut}
@@ -48,7 +56,12 @@ export default function Header({ loginStatus }) {
             logout
           </button>
         ) : (
-          <button className={styles.loginButton}>login</button>
+          <button
+            className={styles.loginButton}
+            onClick={handleInoperableMessage}
+          >
+            login
+          </button>
         )}
       </div>
     </section>
