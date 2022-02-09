@@ -7,7 +7,11 @@ import Layout from "../components/Layout";
 import { firebase } from "../utils/firebase/firebase.js";
 
 // firebase auth setup:
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 const auth = getAuth();
 
 //
