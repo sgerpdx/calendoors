@@ -3,6 +3,10 @@ import styles from "../styles/Home.module.css";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 
+// Components:
+import LoginModal from "../components/LoginModal";
+import InUpForm from "../components/InUpForm";
+
 // graphics imports:
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
@@ -221,61 +225,7 @@ export default function Home({ value }) {
         <textarea placeholder="user data here"></textarea>
       </section>
       <section className={styles.loginFormContainer}>
-        <div>
-          {formToggle ? (
-            <>
-              <form id="signup-form">
-                <fieldset>
-                  <legend>account:</legend>
-                  <div>
-                    <label htmlFor="signup-name">name:</label>
-                    <input
-                      type="name"
-                      name="name"
-                      onChange={handleNameChange}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="signup-email">email:</label>
-                    <input
-                      type="email"
-                      name="email"
-                      onChange={handleEmailChange}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="signup-password">password:</label>
-                    <input
-                      type="password"
-                      name="password"
-                      onChange={handlePasswordChange}
-                      required
-                    />
-                  </div>
-
-                  {/* <form action="/action_page.php">
-                    Upload Avatar Image:
-                    <input type="file" name="filename" />
-                  </form> */}
-                  <button onClick={handleFormSubmit}>submit</button>
-                </fieldset>
-              </form>
-
-              <fieldset>
-                <form>
-                  <label htmlFor="img">Select image:</label>
-                  <input type="file" id="img" name="img" accept="image/*" />
-                  <input type="submit" onSubmit={handleAvatarChange} />
-                </form>
-                <button onClick={handleUserUpdate}>submit</button>
-              </fieldset>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
+        <InUpForm />
       </section>
     </>
   );

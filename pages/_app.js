@@ -19,6 +19,7 @@ const auth = getAuth();
 function MyApp({ Component, pageProps }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUserID, setCurrentUserID] = useState("135792468");
+  const [show, setShow] = useState(false);
 
   const handleUserIDChange = (userID) => {
     setCurrentUserID(userID);
@@ -40,7 +41,11 @@ function MyApp({ Component, pageProps }) {
     }
   });
 
-  const state = { auth, isLoggedIn, handleLoginChange };
+  const handleShowChange = () => {
+    setShow(!show);
+  };
+
+  const state = { auth, isLoggedIn, handleLoginChange, show, handleShowChange };
 
   return (
     <>
@@ -49,7 +54,11 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/fake-logo.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Layout loginStatus={isLoggedIn} updateLogin={handleLoginChange}>
+      <Layout
+        loginStatus={isLoggedIn}
+        updateLogin={handleLoginChange}
+        changeShow={handleShowChange}
+      >
         <Component {...pageProps} value={state} />
       </Layout>
     </>
