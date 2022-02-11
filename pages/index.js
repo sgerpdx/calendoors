@@ -225,7 +225,7 @@ export default function Home({ value }) {
         <textarea placeholder="user data here"></textarea>
       </section>
       <section className={styles.loginFormContainer}>
-        <InUpForm />
+        <InUpForm nameChange={handleNameChange} emailChange={handleEmailChange} passwordChange={handlePasswordChange}/>
       </section>
     </>
   );

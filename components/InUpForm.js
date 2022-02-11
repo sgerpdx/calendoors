@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/Modal.module.css";
+import LoginContext from "../context/LoginContext";
 
-export default function InUpForm() {
+export default function InUpForm({ nameChange, emailChange, passwordChange }) {
   const [isUser, setIsUser] = useState(false);
 
-  // Form logic:
+  // Context import
+  const whoIsDog = useContext(LoginContext);
+
+  // Form logic
   const handleExistingUser = () => {
     setIsUser(!isUser);
   };
@@ -19,11 +23,21 @@ export default function InUpForm() {
               <fieldset>
                 <div>
                   <label htmlFor="signup-email">Email Address: </label>
-                  <input type="email" name="email" required />
+                  <input
+                    onChange={emailChange}
+                    type="email"
+                    name="email"
+                    required
+                  />
                 </div>
                 <div>
                   <label htmlFor="signup-password">Password: </label>
-                  <input type="password" name="password" required />
+                  <input
+                    onChange={passwordChange}
+                    type="password"
+                    name="password"
+                    required
+                  />
                 </div>
                 <button>login</button>
               </fieldset>
@@ -47,15 +61,30 @@ export default function InUpForm() {
               <fieldset>
                 <div>
                   <label htmlFor="signup-name">User Name: </label>
-                  <input type="name" name="name" required />
+                  <input
+                    onChange={nameChange}
+                    type="name"
+                    name="name"
+                    required
+                  />
                 </div>
                 <div>
                   <label htmlFor="signup-email">Email Address: </label>
-                  <input type="email" name="email" required />
+                  <input
+                    onChange={emailChange}
+                    type="email"
+                    name="email"
+                    required
+                  />
                 </div>
                 <div>
                   <label htmlFor="signup-password">Password: </label>
-                  <input type="password" name="password" required />
+                  <input
+                    onChange={passwordChange}
+                    type="password"
+                    name="password"
+                    required
+                  />
                 </div>
                 <button>sign-up</button>
               </fieldset>
@@ -73,6 +102,9 @@ export default function InUpForm() {
             </div>
           </>
         )}
+      </div>
+      <div>
+          <p>{whoIsDog}</p>
       </div>
 
       {/* <fieldset>

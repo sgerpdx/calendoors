@@ -3,10 +3,13 @@ import "../styles/globals.css";
 import Head from "next/head";
 import Layout from "../components/Layout";
 
-// firebase app import (okay that not being called explicitly):
+// Login context import
+import { LoginProvider } from "../context/LoginContext";
+
+// Firebase app import (it is okay that this is not being called explicitly)
 import { firebase } from "../utils/firebase/firebase.js";
 
-// firebase auth setup:
+// Firebase auth setup
 import {
   getAuth,
   onAuthStateChanged,
@@ -20,6 +23,9 @@ function MyApp({ Component, pageProps }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUserID, setCurrentUserID] = useState("135792468");
   const [show, setShow] = useState(false);
+
+  // State variable to test context provider
+  const [dogName, setDogName] = useState("Rover");
 
   const handleUserIDChange = (userID) => {
     setCurrentUserID(userID);
@@ -54,13 +60,15 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/fake-logo.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Layout
-        loginStatus={isLoggedIn}
-        updateLogin={handleLoginChange}
-        changeShow={handleShowChange}
-      >
-        <Component {...pageProps} value={state} />
-      </Layout>
+      <LoginProvider value={dogName}>
+        <Layout
+          loginStatus={isLoggedIn}
+          updateLogin={handleLoginChange}
+          changeShow={handleShowChange}
+        >
+          <Component {...pageProps} value={state} />
+        </Layout>
+      </LoginProvider>
     </>
   );
 }
