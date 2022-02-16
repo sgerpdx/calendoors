@@ -3,6 +3,10 @@ import styles from "../styles/Home.module.css";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 
+// Components:
+import LoginModal from "../components/LoginModal";
+import InUpForm from "../components/InUpForm";
+
 // graphics imports:
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
@@ -28,7 +32,11 @@ const auth = getAuth();
 
 export default function Home({ value }) {
   // to control visibility of user form:
-  const [formToggle, setFormToggle] = useState(false);
+  const [formVisibility, setFormVisibility] = useState(false);
+
+  // State from _app:
+  const isLoggedIn = value.isLoggedIn;
+  const handleLoginChange = value.handleLoginChange;
 
   // user information:
   const [uName, setUName] = useState("");
@@ -37,7 +45,7 @@ export default function Home({ value }) {
   const [uAvatar, setUAvatar] = useState("https://placekitten.com/200/300");
 
   // current action for form:
-  const [newAction, setNewAction] = useState("");
+  const [newAction, setNewAction] = useState("signup");
 
   //router for query params
   const router = useRouter();
@@ -54,6 +62,11 @@ export default function Home({ value }) {
       console.log("Profile Updated!");
     });
   };
+
+  const handleActionChange = () => {
+    const currentAction = newAction;
+    setNewAction(!currentAction);
+  }
 
   //this needs to be adjusted to simple open the modal:
   const handleCalendarSignUp = (e) => {
@@ -84,9 +97,25 @@ export default function Home({ value }) {
   };
 
   //simply shows or hides the form:
-  const handleFormViz = (e) => {
-    setFormToggle(!formToggle);
+  const handleFormVisibility = () => {
+    setFormVisibility(!formVisibility);
   };
+
+  // This function can be defined and then called in each of the specific handlers -- could it also be called inline?
+  // const handleStateChange = (e, setStateFunction) => {
+  //   e.preventDefault();
+  //   const newState = e.target.value;
+  //   setStateFunction(newState);
+  // };
+
+  // Like this -- implement later:
+  // const newHandleNameChange = (e) => {
+  //   handleStateChange(e, setUName);
+  // };
+
+  useEffect(() => {
+    console.log("New Name: ", uName);
+  }, [uName]);
 
   const handleNameChange = (e) => {
     e.preventDefault();
@@ -122,6 +151,7 @@ export default function Home({ value }) {
     const currentEmail = uEmail;
     const currentPassword = uPassword;
     const currentAction = newAction;
+    const currentLoginStatus = isLoggedIn;
 
     // console log operating data:
     console.log("Active Info:", uName, uEmail, uPassword);
@@ -135,14 +165,15 @@ export default function Home({ value }) {
           //   moniker: currentName,
           // });
 
-          //this creates a record in the users collection to go with the auth user:
-          setDoc(doc(db, "users", cred.user.uid), {
-            username: currentName,
-            email: currentEmail,
-            avatar: "https://placekitten.com/200/300",
-          }).then(console.log("All good!"));
+          // this creates a record in the users collection to go with the auth user:
+          // need to delay this because firestore cannnot be accessed until user auth is established, must be sequential not simultaneous
+          // setDoc(doc(db, "users", cred.user.uid), {
+          //   username: currentName,
+          //   email: currentEmail,
+          //   avatar: "https://placekitten.com/200/300",
+          // }).then(console.log("All good!"));
 
-          handleUserIDChange(cred.uid);
+          // handleUserIDChange(cred.uid);
         }
       );
       console.log("User signed up.");
@@ -154,23 +185,34 @@ export default function Home({ value }) {
           console.log("User Cred:", cred.user);
           //console.log("currentUserID:", currentUserID);
           console.log("name:", cred.user.displayName);
-          handleUserIDChange(cred.uid);
+          // handleUserIDChange(cred.uid);
         }
       );
+
       console.log("Logged back in");
     }
-    setFormToggle(false);
-    router.push("/setup/");
+
+    handleLoginChange(true);
+    setFormVisibility(false);
+    // router.push("/setup/");
   };
 
-  //simply logs current user info whenever uEmail changes:
+  // Simply logs current user info whenever uEmail changes:
   useEffect(() => {
     console.log("NEAPWAV:", uName, uEmail, uPassword, uAvatar);
   }, []);
+
+  // Updates login status to current for conditional rendering of header
+  // This seems unnecessary??? it's just reversing itself???
+  // useEffect(() => {
+  //   const currentLoginStatus = isLoggedIn;
+  //   handleLoginChange(!currentLoginStatus);
+  // }, [isLoggedIn]);
+
   return (
     <>
       <section className={styles.loginControls}>
-        <button onClick={handleFormViz} className={styles.loginButton}>
+        <button onClick={handleFormVisibility} className={styles.loginButton}>
           <BsPencilSquare />
           <span style={{ marginLeft: "10px" }}>show form</span>
         </button>
@@ -206,61 +248,17 @@ export default function Home({ value }) {
         <textarea placeholder="user data here"></textarea>
       </section>
       <section className={styles.loginFormContainer}>
-        <div>
-          {formToggle ? (
-            <>
-              <form id="signup-form">
-                <fieldset>
-                  <legend>account:</legend>
-                  <div>
-                    <label htmlFor="signup-name">name:</label>
-                    <input
-                      type="name"
-                      name="name"
-                      onChange={handleNameChange}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="signup-email">email:</label>
-                    <input
-                      type="email"
-                      name="email"
-                      onChange={handleEmailChange}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="signup-password">password:</label>
-                    <input
-                      type="password"
-                      name="password"
-                      onChange={handlePasswordChange}
-                      required
-                    />
-                  </div>
-
-                  {/* <form action="/action_page.php">
-                    Upload Avatar Image:
-                    <input type="file" name="filename" />
-                  </form> */}
-                  <button onClick={handleFormSubmit}>submit</button>
-                </fieldset>
-              </form>
-
-              <fieldset>
-                <form>
-                  <label htmlFor="img">Select image:</label>
-                  <input type="file" id="img" name="img" accept="image/*" />
-                  <input type="submit" onSubmit={handleAvatarChange} />
-                </form>
-                <button onClick={handleUserUpdate}>submit</button>
-              </fieldset>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
+        {formVisibility ? (
+          <InUpForm
+            nameChange={handleNameChange}
+            emailChange={handleEmailChange}
+            passwordChange={handlePasswordChange}
+            formSubmit={handleFormSubmit}
+            handleAction={handleActionChange}
+          />
+        ) : (
+          <></>
+        )}
       </section>
     </>
   );

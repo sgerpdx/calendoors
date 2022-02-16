@@ -36,9 +36,9 @@ export default function setup({ value }) {
   const [uEmail, setUEmail] = useState("");
   const [uAvatar, setUAvatar] = useState("https://placekitten.com/200/300");
 
-  // state from _app (maybe unnecessary with onAuthStateChanged)
-  //   const currentUserID = value.currentUserID;
-  //   const handleUserIDChange = value.handleUserIDChange;
+  // State from _app:
+  const isLoggedIn = value.isLoggedIn;
+  const handleLoginChange = value.handleLoginChange;
 
   // router
   const router = useRouter();
@@ -49,7 +49,8 @@ export default function setup({ value }) {
       // do something
       // grab uid and use to call function getting user image and name from firestore collection
       const currentUID = user.uid;
-      console.log("Current ID:", currentUID);
+      // console.log("Current ID:", currentUID);
+
       setUserID(currentUID);
     } else {
       // do something else
@@ -74,6 +75,7 @@ export default function setup({ value }) {
     const currentAvatar = uAvatar;
     const currentID = userID;
     grabUser(currentID);
+    handleLoginChange(true);
     console.log("NEAMANA:", currentName, currentEmail, currentAvatar);
   }, []);
 

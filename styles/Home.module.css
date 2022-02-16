@@ -130,6 +130,15 @@
   border-radius: 6px;
 }
 
+.loginButton:hover {
+  border: solid 1px goldenrod;
+}
+
+.loginButton:active {
+  background-color: white;
+  color: brown;
+}
+
 .loginDataBox {
   display: flex;
   flex-direction: column;
