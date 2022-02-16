@@ -2,15 +2,24 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/Modal.module.css";
 import LoginContext from "../context/LoginContext";
 
-export default function InUpForm({ nameChange, emailChange, passwordChange }) {
+export default function InUpForm({
+  nameChange,
+  emailChange,
+  passwordChange,
+  formSubmit,
+  handleAction,
+}) {
   const [isUser, setIsUser] = useState(false);
 
   // Context import
-  const whoIsDog = useContext(LoginContext);
+  const userContext = useContext(LoginContext);
+  const whoIsDog = userContext.dogName;
+  const userID = userContext.currentUserID;
 
   // Form logic
   const handleExistingUser = () => {
     setIsUser(!isUser);
+    handleAction();
   };
 
   return (
@@ -39,7 +48,7 @@ export default function InUpForm({ nameChange, emailChange, passwordChange }) {
                     required
                   />
                 </div>
-                <button>login</button>
+                <button onClick={formSubmit}>login</button>
               </fieldset>
             </form>
             <div>
@@ -65,7 +74,7 @@ export default function InUpForm({ nameChange, emailChange, passwordChange }) {
                     onChange={nameChange}
                     type="name"
                     name="name"
-                    required
+                    // required
                   />
                 </div>
                 <div>
@@ -86,7 +95,7 @@ export default function InUpForm({ nameChange, emailChange, passwordChange }) {
                     required
                   />
                 </div>
-                <button>sign-up</button>
+                <button onClick={formSubmit}>sign-up</button>
               </fieldset>
             </form>
             <div>
@@ -104,7 +113,8 @@ export default function InUpForm({ nameChange, emailChange, passwordChange }) {
         )}
       </div>
       <div>
-          <p>{whoIsDog}</p>
+        <p>{whoIsDog}</p>
+        <p>{userID}</p>
       </div>
 
       {/* <fieldset>

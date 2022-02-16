@@ -32,7 +32,7 @@ const auth = getAuth();
 
 export default function Home({ value }) {
   // to control visibility of user form:
-  const [formToggle, setFormToggle] = useState(false);
+  const [formVisibility, setFormVisibility] = useState(false);
 
   // State from _app:
   const isLoggedIn = value.isLoggedIn;
@@ -45,7 +45,7 @@ export default function Home({ value }) {
   const [uAvatar, setUAvatar] = useState("https://placekitten.com/200/300");
 
   // current action for form:
-  const [newAction, setNewAction] = useState("");
+  const [newAction, setNewAction] = useState("signup");
 
   //router for query params
   const router = useRouter();
@@ -62,6 +62,11 @@ export default function Home({ value }) {
       console.log("Profile Updated!");
     });
   };
+
+  const handleActionChange = () => {
+    const currentAction = newAction;
+    setNewAction(!currentAction);
+  }
 
   //this needs to be adjusted to simple open the modal:
   const handleCalendarSignUp = (e) => {
@@ -92,9 +97,25 @@ export default function Home({ value }) {
   };
 
   //simply shows or hides the form:
-  const handleFormViz = (e) => {
-    setFormToggle(!formToggle);
+  const handleFormVisibility = () => {
+    setFormVisibility(!formVisibility);
   };
+
+  // This function can be defined and then called in each of the specific handlers -- could it also be called inline?
+  // const handleStateChange = (e, setStateFunction) => {
+  //   e.preventDefault();
+  //   const newState = e.target.value;
+  //   setStateFunction(newState);
+  // };
+
+  // Like this -- implement later:
+  // const newHandleNameChange = (e) => {
+  //   handleStateChange(e, setUName);
+  // };
+
+  useEffect(() => {
+    console.log("New Name: ", uName);
+  }, [uName]);
 
   const handleNameChange = (e) => {
     e.preventDefault();
@@ -144,12 +165,13 @@ export default function Home({ value }) {
           //   moniker: currentName,
           // });
 
-          //this creates a record in the users collection to go with the auth user:
-          setDoc(doc(db, "users", cred.user.uid), {
-            username: currentName,
-            email: currentEmail,
-            avatar: "https://placekitten.com/200/300",
-          }).then(console.log("All good!"));
+          // this creates a record in the users collection to go with the auth user:
+          // need to delay this because firestore cannnot be accessed until user auth is established, must be sequential not simultaneous
+          // setDoc(doc(db, "users", cred.user.uid), {
+          //   username: currentName,
+          //   email: currentEmail,
+          //   avatar: "https://placekitten.com/200/300",
+          // }).then(console.log("All good!"));
 
           // handleUserIDChange(cred.uid);
         }
@@ -171,8 +193,8 @@ export default function Home({ value }) {
     }
 
     handleLoginChange(true);
-    setFormToggle(false);
-    router.push("/setup/");
+    setFormVisibility(false);
+    // router.push("/setup/");
   };
 
   // Simply logs current user info whenever uEmail changes:
@@ -181,15 +203,16 @@ export default function Home({ value }) {
   }, []);
 
   // Updates login status to current for conditional rendering of header
-  useEffect(() => {
-    const currentLoginStatus = isLoggedIn;
-    handleLoginChange(false);
-  }, [isLoggedIn]);
+  // This seems unnecessary??? it's just reversing itself???
+  // useEffect(() => {
+  //   const currentLoginStatus = isLoggedIn;
+  //   handleLoginChange(!currentLoginStatus);
+  // }, [isLoggedIn]);
 
   return (
     <>
       <section className={styles.loginControls}>
-        <button onClick={handleFormViz} className={styles.loginButton}>
+        <button onClick={handleFormVisibility} className={styles.loginButton}>
           <BsPencilSquare />
           <span style={{ marginLeft: "10px" }}>show form</span>
         </button>
@@ -225,7 +248,17 @@ export default function Home({ value }) {
         <textarea placeholder="user data here"></textarea>
       </section>
       <section className={styles.loginFormContainer}>
-        <InUpForm nameChange={handleNameChange} emailChange={handleEmailChange} passwordChange={handlePasswordChange}/>
+        {formVisibility ? (
+          <InUpForm
+            nameChange={handleNameChange}
+            emailChange={handleEmailChange}
+            passwordChange={handlePasswordChange}
+            formSubmit={handleFormSubmit}
+            handleAction={handleActionChange}
+          />
+        ) : (
+          <></>
+        )}
       </section>
     </>
   );

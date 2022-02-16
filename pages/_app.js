@@ -40,6 +40,8 @@ function MyApp({ Component, pageProps }) {
     //here we can check to see if user exists
     if (user) {
       setIsLoggedIn(true);
+      const currentUID = user.uid;
+      setCurrentUserID(currentUID);
       console.log("user logged in:", user);
     } else {
       setIsLoggedIn(false);
@@ -51,6 +53,8 @@ function MyApp({ Component, pageProps }) {
     setShow(!show);
   };
 
+  const userContext = {dogName, currentUserID}
+
   const state = { auth, isLoggedIn, handleLoginChange, show, handleShowChange };
 
   return (
@@ -60,7 +64,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/fake-logo.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <LoginProvider value={dogName}>
+      <LoginProvider value={userContext}>
         <Layout
           loginStatus={isLoggedIn}
           updateLogin={handleLoginChange}
